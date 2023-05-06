@@ -15,10 +15,10 @@ def create_task(self):
 
 @celery.task(bind=True)
 def make_operation(self, x: int, y: int, operation: str):
-    print("-" * 8)
     redis_client.set(self.AsyncResult(self.request.id).id, "Task running")
     time.sleep(10)
     redis_client.set(self.AsyncResult(self.request.id).id, "Task complete")
+    print(self.request.args)
     return self.request.args
 
 
@@ -38,5 +38,6 @@ def calculate(self, task_id: str):
     if task[2] == "*":
         redis_client.set(self.AsyncResult(self.request.id).id, "Task complete")
         return task[0] * task[1]
+
 
 
