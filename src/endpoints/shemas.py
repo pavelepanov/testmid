@@ -11,4 +11,4 @@ class GetAnswer(BaseModel):
 
 class GetListOfTasks(BaseModel):
     task_key: str
-    status: str
+    task_status: str
